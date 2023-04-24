@@ -71,7 +71,7 @@ class BSTree
 
         bst* insert(int key, hospital h, bst* node)
         {
-            // Perform the normal BST insertion
+            
             if (node == NULL)
                 return new_node(key, h);
 
@@ -82,9 +82,9 @@ class BSTree
             else
                 return node;
 
-            // Update height of this node
             
-        // return the (unchanged) node pointer
+            
+        
         return node;
     }
 
