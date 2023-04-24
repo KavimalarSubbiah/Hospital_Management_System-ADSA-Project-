@@ -77,15 +77,12 @@ class AVLTree
             avl* x = y->lchild;
             avl* T2 = x->rchild;
 
-            // Perform rotation
             x->rchild = y;
             y->lchild = T2;
 
-            // Update heights
             y->height = max(height(y->lchild), height(y->rchild)) + 1;
             x->height = max(height(x->lchild), height(x->rchild)) + 1;
 
-            // Return new root
             return x;
         }
 
@@ -94,15 +91,12 @@ class AVLTree
             avl* y = x->rchild;
             avl* T2 = y->lchild;
 
-            // Perform rotation
             y->lchild = x;
             x->rchild = T2;
 
-            // Update heights
             x->height = max(height(x->lchild), height(x->rchild)) + 1;
             y->height = max(height(y->lchild), height(y->rchild)) + 1;
 
-            // Return new root
             return y;
         }
 
@@ -116,7 +110,6 @@ class AVLTree
 
         avl* insert(int key, hospital h, avl* node)
         {
-            // Perform the normal BST insertion
             if (node == NULL)
                 return new_node(key, h);
 
@@ -127,38 +120,31 @@ class AVLTree
             else
                 return node;
 
-            // Update height of this node
             node->height = 1 + max(height(node->lchild), height(node->rchild));
 
-            // Get the balance factor of this node
             int balance = get_balance(node);
 
-            // Left Left Case
             if (balance > 1&& key < node->lchild->key)
             {
             return right_rotate(node);
             }
-                    // Right Right Case
         if (balance < -1 && key > node->rchild->key)
         {
             return left_rotate(node);
         }
 
-        // Left Right Case
         if (balance > 1 && key > node->lchild->key)
         {
             node->lchild = left_rotate(node->lchild);
             return right_rotate(node);
         }
 
-        // Right Left Case
         if (balance < -1 && key < node->rchild->key)
         {
             node->rchild = right_rotate(node->rchild);
             return left_rotate(node);
         }
 
-        // return the (unchanged) node pointer
         return node;
     }
 
@@ -209,28 +195,22 @@ class AVLTree
         if (root == NULL)
             return root;
 
-        // Update height of the current node
         root->height = 1 + max(height(root->lchild), height(root->rchild));
 
-        // Get the balance factor of this node
         int balance = get_balance(root);
 
-        // Left Left Case
         if (balance > 1 && get_balance(root->lchild) >= 0)
             return right_rotate(root);
 
-        // Left Right Case
         if (balance > 1 && get_balance(root->lchild) < 0)
         {
             root->lchild = left_rotate(root->lchild);
             return right_rotate(root);
         }
 
-        // Right Right Case
         if (balance < -1 && get_balance(root->rchild) <= 0)
             return left_rotate(root);
 
-        // Right Left Case
         if (balance < -1 && get_balance(root->rchild) > 0)
         {
             root->rchild = right_rotate(root->rchild);
@@ -383,7 +363,7 @@ int main()
             start = clock();
             node = tree.Search(input, root);
             end = clock();
-            time_taken_search = double(end - start);
+            time_taken_search = double(end - start)/double(CLOCKS_PER_SEC);;
             if(node->key == input){
                 cout<<"\nElement to be searched is found";
                 cout<<"\nAfter Search "<<input<<endl;
@@ -422,3 +402,4 @@ int main()
     cout<<"\n";
     return 0;
 }
+
